@@ -1,0 +1,6 @@
+# github.com/BurntSushi/toml v0.3.1
+github.com/BurntSushi/toml
+# github.com/gofrs/uuid v3.2.0+incompatible
+github.com/gofrs/uuid
+# github.com/matryer/way v0.0.0-20180416093233-9632d0c407b0
+github.com/matryer/way

@@ -1,0 +1,67 @@
+package api
+
+import (
+	"errors"
+	"fmt"
+	"net/http"
+	"strings"
+)
+
+// Cookie errors.
+var (
+	errCookieMalformed = errors.New("cookie malformed")
+	errNoCookie        = errors.New("no cookie found")
+)
+
+func (s *Server) createSessionCookie(w http.ResponseWriter, id string) {
+	domain, secure := s.getCookieParams()
+
+	http.SetCookie(w, &http.Cookie{
+		Name:     "session",
+		Value:    fmt.Sprintf("%s|%s", id, s.Services.SignData(id)),
+		MaxAge:   365 * 24 * 60 * 60,
+		SameSite: http.SameSiteLaxMode,
+		Domain:   domain,
+		Path:     "/",
+		Secure:   secure,
+		HttpOnly: true,
+	})
+}
+
+func (s *Server) readSessionCookie(r *http.Request) (string, error) {
+	cookie, err := r.Cookie("session")
+	if err != nil {
+		return "", errNoCookie
+	}
+
+	parts := strings.Split(cookie.Value, "|")
+
+	if len(parts) != 2 {
+		return "", errCookieMalformed
+	}
+
+	if s.Services.SignData(parts[0]) != parts[1] {
+		return "", errCookieMalformed
+	}
+
+	return parts[0], nil
+}
+
+func (s *Server) destroySessionCookie(w http.ResponseWriter) {
+	domain, _ := s.getCookieParams()
+
+	http.SetCookie(w, &http.Cookie{
+		Name:   "session",
+		Domain: domain,
+		Path:   "/",
+		MaxAge: -1,
+	})
+}
+
+func (s *Server) getCookieParams() (string, bool) {
+	if s.Development == true {
+		return "yakk.app.local", false
+	}
+
+	return "yakk.app", true
+}
