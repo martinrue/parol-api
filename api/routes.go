@@ -14,7 +14,7 @@ func (s *Server) routes() {
 	routes := []route{
 		{"OPTIONS", "/...", s.handleCORS()},
 		{"GET", "/healthz", s.handleHealthz()},
-		{"POST", "/speak", s.handleSpeech()},
+		{"POST", "/speak", s.handleSpeak()},
 	}
 
 	for _, route := range routes {
