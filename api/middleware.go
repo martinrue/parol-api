@@ -11,7 +11,7 @@ func (s *Server) rid() string {
 }
 
 func (s *Server) addCORSHeaders(w http.ResponseWriter, r *http.Request) {
-	origin := "roboto.martinrue.com"
+	origin := "https://roboto.martinrue.com"
 
 	if s.Development == true {
 		origin = "http://localhost:1234"
