@@ -7,10 +7,13 @@ import (
 )
 
 type config struct {
-	Bind        string `toml:"bind"`
-	AWSKey      string `toml:"aws-key"`
-	AWSSecret   string `toml:"aws-secret"`
-	Development bool   `toml:"development"`
+	Bind        string   `toml:"bind"`
+	AWSKey      string   `toml:"aws-key"`
+	AWSSecret   string   `toml:"aws-secret"`
+	AWSRegion   string   `toml:"aws-region"`
+	AWSBucket   string   `toml:"aws-bucket"`
+	Keys        []string `toml:"full-access-keys"`
+	Development bool     `toml:"development"`
 }
 
 func readConfig(path string) (*config, error) {
@@ -34,6 +37,14 @@ func readConfig(path string) (*config, error) {
 
 	if conf.AWSSecret == "" {
 		return nil, errors.New("config file is missing aws-secret key")
+	}
+
+	if conf.AWSRegion == "" {
+		return nil, errors.New("config file is missing aws-region key")
+	}
+
+	if conf.AWSBucket == "" {
+		return nil, errors.New("config file is missing aws-bucket key")
 	}
 
 	return conf, nil

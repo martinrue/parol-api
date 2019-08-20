@@ -13,7 +13,7 @@ type route struct {
 func (s *Server) routes() {
 	routes := []route{
 		{"OPTIONS", "/...", s.handleCORS()},
-		{"GET", "/healthz", s.handleHealthz()},
+		{"GET", "/stats", s.handleStats()},
 		{"POST", "/speak", s.handleSpeak()},
 	}
 

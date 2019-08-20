@@ -1,6 +1,6 @@
 # Parol API
 
-The HTTP API for Parol – the speech robot for Esperanto.
+The HTTP API for Parol – the Esperanto speech robot.
 
 ## Building
 
@@ -32,6 +32,15 @@ aws-key = "..."
 
 # AWS access secret
 aws-secret = "..."
+
+# AWS region
+aws-region = "eu-west-3"
+
+# AWS bucket name to store audio files
+aws-bucket = "parol"
+
+# keys to bypass the daily request and character limits
+full-access-keys = ["abcd", "1234"]
 
 # specifies whether the API should run in local or production mode
 development = true

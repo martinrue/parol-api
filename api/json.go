@@ -10,7 +10,7 @@ func (s *Server) readJSON(w http.ResponseWriter, r *http.Request, data interface
 	defer r.Body.Close()
 
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
-		s.writeError(w, http.StatusUnprocessableEntity, errors.New("invalid request object"))
+		s.writeError(w, http.StatusUnprocessableEntity, errors.New("nevalida peta objekto"))
 		return false
 	}
 
@@ -34,7 +34,7 @@ func (s *Server) writeError(w http.ResponseWriter, code int, err ...error) {
 	w.WriteHeader(code)
 
 	if code == http.StatusInternalServerError || len(err) == 0 {
-		s.writeJSON(w, response{"the request failed, please try again"})
+		s.writeJSON(w, response{"la peto ne sukcesis, bonvolu reprovi"})
 		return
 	}
 

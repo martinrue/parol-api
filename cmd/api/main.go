@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/matryer/way"
 
@@ -46,13 +47,20 @@ func main() {
 		Config: &services.Config{
 			AWSKey:    config.AWSKey,
 			AWSSecret: config.AWSSecret,
+			AWSRegion: config.AWSRegion,
+			AWSBucket: config.AWSBucket,
+			Keys:      config.Keys,
 		},
 		Logger: logger,
+		Usage: &services.Usage{
+			Started:       time.Now(),
+			TotalRequests: 0,
+			HourlyUsage:   make(map[string]int, 0),
+		},
 	}
 
 	server := &api.Server{
 		Development: config.Development,
-		Logger:      logger,
 		Router:      way.NewRouter(),
 		Services:    services,
 	}
