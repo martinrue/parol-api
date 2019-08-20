@@ -4,7 +4,7 @@ The HTTP API for Parol – the Esperanto speech robot.
 
 ## Building
 
-Run `make build` to create a development build of the API.
+Run `make` to create a build of the API.
 
 ## Running
 
