@@ -33,14 +33,40 @@ type Usage struct {
 	HourlyUsage   map[string]int
 }
 
+func (u *Usage) cleanUsage() {
+	validKeys := make([]string, 0)
+
+	for i := 0; i < 5; i++ {
+		validKeys = append(validKeys, time.Now().UTC().AddDate(0, 0, i*-1).Format("20060102"))
+	}
+
+	expiredKey := func(key string) bool {
+		for _, k := range validKeys {
+			if k == key[0:8] {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	for key := range u.HourlyUsage {
+		if expiredKey(key) {
+			delete(u.HourlyUsage, key)
+		}
+	}
+}
+
 // TrackRequest adds an entry to the hourly usage map.
 func (u *Usage) TrackRequest() {
 	hour := time.Now().UTC().Format("2006010215")
 	u.HourlyUsage[hour]++
 	u.TotalRequests++
+
+	u.cleanUsage()
 }
 
-//LimitExceeded returns true if the service has reached its hourly usage limit.
+// LimitExceeded returns true if the service has reached its hourly usage limit.
 func (u *Usage) LimitExceeded(limit int) bool {
 	hour := time.Now().UTC().Format("2006010215")
 	return u.HourlyUsage[hour] >= limit
