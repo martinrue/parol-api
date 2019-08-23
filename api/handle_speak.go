@@ -10,7 +10,6 @@ import (
 )
 
 const (
-	maxHourlyRequests  = 100
 	maxTextLength      = 300
 	maxTextLengthExtra = 3000
 )
@@ -84,7 +83,9 @@ func (s *Server) handleSpeak() http.HandlerFunc {
 			return
 		}
 
-		if s.Services.Usage.LimitExceeded(maxHourlyRequests) {
+		maxRequests := s.Services.Config.MaxRequests
+
+		if maxRequests != 0 && s.Services.Usage.LimitExceeded(maxRequests) {
 			if hasOverride {
 				s.Services.Logger.Print(rid, "ignoring hourly limit, key: %s", req.Key)
 			} else {

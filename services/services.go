@@ -8,11 +8,12 @@ import (
 
 // Config holds in-memory service config data.
 type Config struct {
-	AWSKey    string
-	AWSSecret string
-	AWSRegion string
-	AWSBucket string
-	Keys      []string
+	AWSKey      string
+	AWSSecret   string
+	AWSRegion   string
+	AWSBucket   string
+	MaxRequests int
+	Keys        []string
 }
 
 // ValidKey determines whether the key is part of the set of valid limit override keys.

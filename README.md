@@ -39,6 +39,9 @@ aws-region = "eu-west-3"
 # AWS bucket name to store audio files
 aws-bucket = "parol"
 
+# the maximum number of requests to accept in any 1 hour period (set to 0 for no max)
+max-hourly-requests = 300
+
 # keys to bypass the daily request and character limits
 full-access-keys = ["abcd", "1234"]
 

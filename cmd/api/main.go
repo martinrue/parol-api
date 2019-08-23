@@ -45,11 +45,12 @@ func main() {
 
 	services := &services.Services{
 		Config: &services.Config{
-			AWSKey:    config.AWSKey,
-			AWSSecret: config.AWSSecret,
-			AWSRegion: config.AWSRegion,
-			AWSBucket: config.AWSBucket,
-			Keys:      config.Keys,
+			AWSKey:      config.AWSKey,
+			AWSSecret:   config.AWSSecret,
+			AWSRegion:   config.AWSRegion,
+			AWSBucket:   config.AWSBucket,
+			MaxRequests: config.MaxRequests,
+			Keys:        config.Keys,
 		},
 		Logger: logger,
 		Usage: &services.Usage{

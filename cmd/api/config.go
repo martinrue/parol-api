@@ -12,6 +12,7 @@ type config struct {
 	AWSSecret   string   `toml:"aws-secret"`
 	AWSRegion   string   `toml:"aws-region"`
 	AWSBucket   string   `toml:"aws-bucket"`
+	MaxRequests int      `toml:"max-hourly-requests"`
 	Keys        []string `toml:"full-access-keys"`
 	Development bool     `toml:"development"`
 }
@@ -21,7 +22,9 @@ func readConfig(path string) (*config, error) {
 		return nil, errors.New("missing config file path")
 	}
 
-	conf := &config{}
+	conf := &config{
+		MaxRequests: -1,
+	}
 
 	if _, err := toml.DecodeFile(path, &conf); err != nil {
 		return nil, err
@@ -45,6 +48,10 @@ func readConfig(path string) (*config, error) {
 
 	if conf.AWSBucket == "" {
 		return nil, errors.New("config file is missing aws-bucket key")
+	}
+
+	if conf.MaxRequests == -1 {
+		return nil, errors.New("config file is missing max-hourly-requests")
 	}
 
 	return conf, nil
