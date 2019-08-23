@@ -10,6 +10,8 @@ github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af h1:pmfjZENx5i
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=
 github.com/martinrue/vocx v0.0.2 h1:FBA5pHdNc0EDc6flzjxzIY/x5tnQuD98Tkf9glfImIE=
 github.com/martinrue/vocx v0.0.2/go.mod h1:rlD2FhmLGi03xF/XfdIprJQMKFXcItoAZzUo2guy1po=
+github.com/martinrue/vocx v0.0.3 h1:21kycKVSwV1dHUmWtzk/TCf8KuqCLuhAHDsyp6ckqrQ=
+github.com/martinrue/vocx v0.0.3/go.mod h1:rlD2FhmLGi03xF/XfdIprJQMKFXcItoAZzUo2guy1po=
 github.com/matryer/way v0.0.0-20180416093233-9632d0c407b0 h1:KWiqy3hl8yCUPAq1frD0DKXKyn7d9h2nVhj2r5ISq2o=
 github.com/matryer/way v0.0.0-20180416093233-9632d0c407b0/go.mod h1:stiJZfMq1xZPqvIyt2VsYMgLul8vf1nmL0D3KU70dEc=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
