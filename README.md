@@ -45,3 +45,9 @@ full-access-keys = ["abcd", "1234"]
 # specifies whether the API should run in local or production mode
 development = true
 ```
+
+## Dependencies
+
+Parol uses both [AWS Polly](https://aws.amazon.com/polly) and [AWS S3](https://aws.amazon.com/s3).
+
+To host your own instance of the API, you must have a valid AWS user (specified by `aws-key` and `aws-secret`), which has access to both of these services.
