@@ -12,7 +12,7 @@ func (s *Services) SynthesiseSpeech(text string, voice string) (io.ReadCloser, s
 	voiceID := "Ewa"
 
 	if voice == "male" {
-		voiceID = "Jacek"
+		voiceID = "Jan"
 	}
 
 	svc := polly.New(s.createSession())
