@@ -1,6 +1,7 @@
 package services
 
 import (
+	"sync"
 	"time"
 
 	"github.com/martinrue/parol-api/logger"
@@ -32,6 +33,8 @@ type Usage struct {
 	Started       time.Time
 	TotalRequests int
 	HourlyUsage   map[string]int
+
+	mutex *sync.Mutex
 }
 
 func (u *Usage) cleanUsage() {
@@ -60,6 +63,9 @@ func (u *Usage) cleanUsage() {
 
 // TrackRequest adds an entry to the hourly usage map.
 func (u *Usage) TrackRequest() {
+	u.mutex.Lock()
+	defer u.mutex.Unlock()
+
 	hour := time.Now().UTC().Format("2006010215")
 	u.HourlyUsage[hour]++
 	u.TotalRequests++
@@ -69,8 +75,21 @@ func (u *Usage) TrackRequest() {
 
 // LimitExceeded returns true if the service has reached its hourly usage limit.
 func (u *Usage) LimitExceeded(limit int) bool {
+	u.mutex.Lock()
+	defer u.mutex.Unlock()
+
 	hour := time.Now().UTC().Format("2006010215")
 	return u.HourlyUsage[hour] >= limit
+}
+
+// NewUsage constructs a usage object with initialised values.
+func NewUsage() *Usage {
+	return &Usage{
+		Started:       time.Now(),
+		TotalRequests: 0,
+		HourlyUsage:   make(map[string]int, 0),
+		mutex:         &sync.Mutex{},
+	}
 }
 
 // Services holds shared functionality as independent service functions.

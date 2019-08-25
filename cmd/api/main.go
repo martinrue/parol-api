@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/matryer/way"
 
@@ -53,11 +52,7 @@ func main() {
 			Keys:        config.Keys,
 		},
 		Logger: logger,
-		Usage: &services.Usage{
-			Started:       time.Now(),
-			TotalRequests: 0,
-			HourlyUsage:   make(map[string]int, 0),
-		},
+		Usage:  services.NewUsage(),
 	}
 
 	server := &api.Server{
