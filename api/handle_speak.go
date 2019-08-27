@@ -59,7 +59,8 @@ func (r *speakRequest) validate(hasOverride bool) error {
 }
 
 type speakResponse struct {
-	URL string `json:"url"`
+	URL         string `json:"url"`
+	Transcribed string `json:"transcribed"`
 }
 
 func (s *Server) handleSpeak() http.HandlerFunc {
@@ -103,9 +104,9 @@ func (s *Server) handleSpeak() http.HandlerFunc {
 			return
 		}
 
-		text := transcriber.Transcribe(req.Text)
+		transcribed := transcriber.Transcribe(req.Text)
 
-		reader, contentType, err := s.Services.SynthesiseSpeech(text, req.Voice)
+		reader, contentType, err := s.Services.SynthesiseSpeech(transcribed, req.Voice)
 		if err != nil {
 			s.Services.Logger.Print(rid, "failed to synthesise speech → %s", err)
 			s.writeError(w, http.StatusInternalServerError)
@@ -123,6 +124,6 @@ func (s *Server) handleSpeak() http.HandlerFunc {
 
 		s.Services.Usage.TrackRequest()
 
-		s.writeJSON(w, &speakResponse{location})
+		s.writeJSON(w, &speakResponse{location, transcribed})
 	}
 }
