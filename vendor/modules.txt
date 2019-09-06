@@ -46,7 +46,7 @@ github.com/aws/aws-sdk-go/private/protocol/query/queryutil
 github.com/gofrs/uuid
 # github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af
 github.com/jmespath/go-jmespath
-# github.com/martinrue/vocx v0.0.5
+# github.com/martinrue/vocx v0.0.6
 github.com/martinrue/vocx
 # github.com/matryer/way v0.0.0-20180416093233-9632d0c407b0
 github.com/matryer/way
