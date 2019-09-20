@@ -75,6 +75,7 @@ func (s *Server) handleSpeak() http.HandlerFunc {
 		}
 
 		s.Services.Logger.Print(rid, "handling speak request (%d chars)", len(req.Text))
+		s.Services.Logger.Print(rid, "remote address: %s", r.Header.Get("X-Forwarded-For"))
 
 		hasOverride := s.Services.Config.ValidKey(req.Key)
 
